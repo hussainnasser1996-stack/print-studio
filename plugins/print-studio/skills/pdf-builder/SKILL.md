@@ -313,6 +313,32 @@ and 2, because clipped text is not in the PDF to be measured. A truncated legal 
 the realistic failure mode, and it is a compliance problem, not a layout one. **If the legal
 block does not fit, give it its own page** — never shrink it to squeeze it in.
 
+### A fifth check: read it back with OCR (what the reader *sees*)
+
+The four checks above read the PDF's text layer: what the file *contains*. A figure can be in
+the text layer and still be invisible on the page: white on white, covered by a box drawn later,
+positioned off the page, overprinted by an absolutely positioned element. And a figure baked into
+an image is visible but absent from the text layer, so no text check can audit it.
+`scripts/readback_ocr.py` renders each page, OCRs the pixels (GLM-OCR, 0.9B, MIT) and diffs the
+numbers per page:
+
+```bash
+python scripts/readback_ocr.py --selftest          # once per machine: must print SELFTEST PASSED
+python scripts/readback_ocr.py out.pdf --expect must_appear.txt   # exit 1 on any FAIL
+```
+
+- **HIDDEN** (FAIL): in the text layer, not visible. Look at that spot zoomed in.
+- **OCR-ONLY** (REVIEW): visible, not in the text layer. Either a rasterised figure (check it by
+  eye against the source) or an OCR misread (a 16.1 read as 16.2 is worth a zoomed look).
+- **EXPECTED** (FAIL): a line from `--expect` (disclaimer's last sentence, key figures) is not
+  visible anywhere. This is the clipping case, since `overflow:hidden` deletes text from both layers.
+- Whole-page OCR skips chart labels and legends. The script re-reads every missing number from a
+  zoomed 300 dpi crop before calling it hidden. Without that second pass, every chart page is a
+  false FAIL.
+- **Default backend is local** (CUDA / Apple MPS / CPU, ~15–30 s a page, ~2 GB model download
+  once). `--backend space` uses a free public Hugging Face Space and **sends page images to a
+  third party**: only for public or fictional documents, never for confidential client material.
+
 ---
 
 ## Process (mandatory — follow in order)
@@ -326,7 +352,7 @@ block does not fit, give it its own page** — never shrink it to squeeze it in.
 6. **READ THE PDF BACK YOURSELF and verify — measured checks first, then visual:**
    - **Run the four vertical-composition checks** (trailing space, largest internal gap,
      content completeness, footer clearance) from the section above — and confirm the
-     checker itself fires on a positive control before trusting a clean result. Do this *before* looking at the pages:
+     checker itself fires on a positive control before trusting a clean result. Then run the **OCR read-back** (`scripts/readback_ocr.py`, fifth check) so what a reader sees is checked against what the file contains. Do all of this *before* looking at the pages:
      underfill and silent clipping are invisible at thumbnail scale, and clipped text cannot
      be seen at all because it is absent from the PDF.
    - **Page count equals pages authored.** More means something overflowed.

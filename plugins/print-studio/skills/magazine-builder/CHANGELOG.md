@@ -2,6 +2,9 @@
 
 One line per lesson: date · what broke · what changed. Newest first. Keep entries generic (this file is public).
 
+- 2026-09-23 · HF Spaces refused jobs despite remaining quota; a design model's "RGBA" output was opaque · Added GPU-request cap, alpha check, and when to use text-drawing design models.
+- 2026-09-23 · Text-layer checks can't see what a reader sees (dark-on-dark, overprinted, off-trim figures) · Added `scripts/readback_ocr.py` to Cardinal Rule 2 and the report audit rule.
+- 2026-09-23 · No photo-real image path; a tested HF model turned out research-only licensed and a Space returned square images · Added "Photo-real heroes via Hugging Face Spaces" (Z-Image-Turbo + BiRefNet-ONNX, licence/aspect/quota checks, depth-effect cover recipe).
 - 2026-09-23 · A skill registry rejected the lite package (binary image in a text-only upload) · `fetch_fonts.py` now also restores the sample cover, so the lite package can be text-only.
 - 2026-09-23 · Annual-report template: typed contents page pointed at the wrong pages · TOC now reads page numbers from `<label>`s via `counter(page).at(locate(..))`.
 - 2026-09-23 · Annual-report template: a YoY % was mis-rounded (16.2 vs 16.1) and a falling leverage ratio printed as "+0.06x" · Deltas are typed with their sign; `good:` sets colour independently of direction on `kpicard`/`yoyrow`.

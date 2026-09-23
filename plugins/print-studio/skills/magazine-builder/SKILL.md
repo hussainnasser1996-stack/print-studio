@@ -60,6 +60,7 @@ After every compile: render the PDF back to PNG at **300 DPI** with `pypdfium2`,
 - **No text touching/overprinting** in the zoomed crops.
 - **Folios are CONSECUTIVE and match the Contents.** A stale page number (e.g. authoring jumps `n:17` → `n:19`) prints a visible gap a collector will notice. Verify the printed folios run 2,3,4… with no skips, and that every TOC page number matches where that section actually lands. (Real bug found in *ANIMA* Vol.01, the worked example below: folio 18 was skipped.)
 - **Caption/credit boxes placed over images are actually legible AND clear of flow text** (see the dark-on-dark + place-collision gotchas below).
+- **Run the OCR read-back:** `python scripts/readback_ocr.py ISSUE.pdf` (run `--selftest` once per machine first). It OCRs each rendered page and flags any number that is in the PDF but not visible (a dark-on-dark caption, a placed credit overprinted by an image, text pushed off the trim). For reports, add `--expect` with the figures and sentences that must appear. It runs locally by default; `--backend space` sends pages to a public Hugging Face Space, so use it only for public or fictional work. Details and verdicts are in the script's docstring.
 
 This is *why magazines work where motion fails*: a PDF is still pages you can actually see. Use that. Iterate honestly; never claim quality you didn't view.
 
@@ -164,6 +165,41 @@ big quality jump over SD1.5. `reference/aigen.py` is the older SD1.5 recipe; pre
 - **Original prompts only — generic archetypes, never named IP characters/series.** This is
   also the *licensing solution*: every pixel is yours → the issue is freely publishable.
 
+## Photo-real heroes via Hugging Face Spaces (no local GPU)
+The local SDXL recipe above is for illustration. For a **photo-realistic** cover or feature hero,
+a free Hugging Face Space renders in ~30 s instead of minutes. The tested path:
+**Z-Image-Turbo** (`Tongyi-MAI/Z-Image-Turbo`, Apache-2.0) via `gradio_client`, then a
+**BiRefNet** cutout (`onnx-community/BiRefNet-ONNX`, MIT, run locally with `onnxruntime`), then
+the masthead drawn *between* the background and the cutout, so the subject's head overlaps the
+masthead.
+- **Read the model's LICENSE file, not the card's "license: other".** Some of the best-looking
+  models are research-only (non-commercial), which rules them out for anything published or sold.
+  Prefer Apache-2.0 / MIT.
+- **Check the Space's API takes width/height** (`Client(space).view_api()`). Some "workflow"
+  Spaces ignore the requested aspect and return 1024² squares, which crop to ~90 dpi at A4.
+  Check pixels ÷ trim width ≥ ~140 dpi before you design around an image.
+- **Anonymous ZeroGPU quota runs out after 2–3 images**, and Spaces show RUNNING even when they
+  will refuse the job. Set `HF_TOKEN` (a free token raises the quota; PRO for long 2048px jobs),
+  send one small test call before planning a batch, and keep a local fallback.
+- **Free-tier Spaces refuse a job by the GPU time it *requests*, not only by the quota left.** A
+  2048px design job (~260 s) or a Space that requests 600 s fails even with minutes of quota
+  left. Use 1024px, or PRO. A free token gives only a few GPU-minutes a day: enough to test, not
+  enough to produce an issue.
+- **Design models that draw their own text** (e.g. `inclusionAI/Ming-Image-0.1-Design`, MIT) make
+  complete covers with correctly spelled text, which is right for mock-ups and social visuals. It
+  is not for print: the demo is square-only, and baked-in text can't be edited or set in the
+  brand fonts. Its "transparent" output came back on white with alpha 250–255, so **check
+  `getextrema()` on the alpha band** before trusting an RGBA claim. For cutouts, generate on a
+  plain background and run BiRefNet.
+- BiRefNet through transformers' `trust_remote_code` pulls einops/kornia/timm/torchvision; the
+  ONNX export needs only `onnxruntime`.
+- **Depth-effect cover:** place the cutout with the *same* crop box as the background so they
+  register, and let the masthead's lower third sit over the top of the head. Draw scrims
+  **before** the masthead, as `gradient.radial` fading to zero at every edge: a linear-edged
+  scrim leaves a hard band and tints the masthead.
+- Never prompt real people, brands or IP; generated people are fictional. Keep a
+  "fictional / image: <model>" credit on test covers.
+
 ---
 
 ## Worked example — *ANIMA*, a five-volume bookazine series built with this skill
@@ -236,7 +272,8 @@ segments sum to the group, the letter's claims match the tables, every YoY % tie
   page is added — the shipped template once said p.09 for a section on page 6.
 - **THE AUDIT RULE (non-negotiable for reports):** every figure is typed as a **string you paste
   from the audited source** — no computed/rounded numbers in the layout. After each compile, render
-  back to PNG @300 DPI and **read every numeric table zoomed-in**: confirm each total foots, each
+  back to PNG @300 DPI, run `scripts/readback_ocr.py` (flags any figure in the file that a reader
+  can't see), and **read every numeric table zoomed-in**: confirm each total foots, each
   YoY % ties, each footnote matches source. Wrong numbers in an annual report are a disaster the
   pretty layout will happily hide.
 - **Why Typst over HTML/CSS here:** reliable page breaks across dozens of pages, automatic TOC /
