@@ -1,0 +1,17 @@
+{
+  "name": "print-studio",
+  "owner": { "name": "Hussain Nasser", "url": "https://github.com/hussainnasser1996-stack" },
+  "metadata": {
+    "description": "Print-grade document skills for Claude: investor teasers, annual reports and magazines as PDFs whose numbers you can audit."
+  },
+  "plugins": [
+    {
+      "name": "print-studio",
+      "source": "./plugins/print-studio",
+      "description": "Two skills that turn Claude into a print designer who checks the maths: pdf-builder (HTML→PDF business documents — teasers, one-pagers, reports) and magazine-builder (Typst magazines, bookazines and annual reports). Every page is rendered back and read before it ships.",
+      "version": "1.0.0",
+      "category": "documents",
+      "keywords": ["pdf", "annual-report", "magazine", "typst", "investor-teaser", "finance", "print", "design"]
+    }
+  ]
+}
