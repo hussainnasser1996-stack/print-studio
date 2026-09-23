@@ -71,7 +71,7 @@ Typst ships as a single static binary from GitHub releases — **pick the build 
 Fonts are **bundled with this skill** at `assets/fonts-ttf/` (Anton, Archivo, Archivo Black,
 Newsreader, Newsreader Italic, Space Mono, Caveat — all SIL OFL, licences in
 `assets/fonts-ttf/licenses/`), so the look is identical on every machine. If that folder is
-empty (a "lite" install from a size-capped registry), run `python3 scripts/fetch_fonts.py` once.
+empty (a "lite" install from a size-capped registry), run `python3 scripts/fetch_fonts.py` once; it also restores the sample cover image.
 
 **macOS / Linux (bash):**
 ```bash

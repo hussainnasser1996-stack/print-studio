@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Download the magazine-builder fonts (all SIL Open Font License) from Google Fonts' GitHub.
+"""Restore the binary assets a "lite" install leaves out: the fonts (all SIL Open Font
+License, from Google Fonts' GitHub) and the sample cover image used by reference/template.typ.
 
-The full install ships these fonts already. Use this script only when you installed a
-"lite" copy of the skill without them (some skill registries cap upload size).
+The full install ships these already. Run this only when you installed a lite copy
+(some skill registries cap file size or accept text files only).
 
-    python3 scripts/fetch_fonts.py          # fills assets/fonts-ttf/
+    python3 scripts/fetch_fonts.py          # fills assets/fonts-ttf/ and reference/img/
 """
 import pathlib, urllib.request
 
@@ -28,3 +29,10 @@ for name, path in FONTS.items():
     urllib.request.urlretrieve(BASE + path, out)
     print("got ", name, out.stat().st_size, "bytes")
 print("fonts ready in", dest)
+
+cover = dest.parent.parent / "reference" / "img" / "cover.jpg"
+if not cover.exists():
+    cover.parent.mkdir(parents=True, exist_ok=True)
+    urllib.request.urlretrieve("https://raw.githubusercontent.com/hussainnasser1996-stack/print-studio/main/"
+                               "plugins/print-studio/skills/magazine-builder/reference/img/cover.jpg", cover)
+    print("got  sample cover", cover.stat().st_size, "bytes")

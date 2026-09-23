@@ -2,6 +2,7 @@
 
 One line per lesson: date · what broke · what changed. Newest first. Keep entries generic (this file is public).
 
+- 2026-09-23 · A skill registry rejected the lite package (binary image in a text-only upload) · `fetch_fonts.py` now also restores the sample cover, so the lite package can be text-only.
 - 2026-09-23 · Annual-report template: typed contents page pointed at the wrong pages · TOC now reads page numbers from `<label>`s via `counter(page).at(locate(..))`.
 - 2026-09-23 · Annual-report template: a YoY % was mis-rounded (16.2 vs 16.1) and a falling leverage ratio printed as "+0.06x" · Deltas are typed with their sign; `good:` sets colour independently of direction on `kpicard`/`yoyrow`.
 - 2026-09-23 · Annual-report template: bar-chart value label overprinted the heading above; contents and letter pages half empty · Chart headroom; fuller sample pages; added cash-flow table and a segment page that foots to the income statement.
