@@ -2,7 +2,7 @@
 
 **Skills that make Claude a print designer who also checks the maths.**
 
-Two [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) for print-ready PDFs: investor teasers, one-pagers, annual reports and full magazines. The documents look designed, not generated, and every number in them can be traced back to its source.
+Three [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) for print-ready PDFs (investor teasers, one-pagers, annual reports, full magazines) and for financial results as animated reels and interactive web reports. The documents look designed, not generated, and every number in them can be traced back to its source.
 
 **Preview page:** [huggingface.co/spaces/Abukhalifa/print-studio](https://huggingface.co/spaces/Abukhalifa/print-studio) · **SkillMD:** `hussainnasser1996/pdf-builder`, `hussainnasser1996/magazine-builder` (in review)
 
@@ -10,6 +10,7 @@ Two [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills
 |---|---|---|
 | **`pdf-builder`** | HTML/CSS → headless Chrome / Edge | Investor teasers, one-pagers, term-sheet summaries, company profiles, short reports (1–20 pages) |
 | **`magazine-builder`** | [Typst](https://typst.app) | Magazines, bookazines, lookbooks, **annual and financial reports**, anything long, multi-column or image-led |
+| **`finance-motion`** | Typst + [Remotion](https://www.remotion.dev) + [ECharts](https://echarts.apache.org) | **One audited data file → a print PDF, an animated reel (LinkedIn 4:5 / 9:16) and an interactive web report**, with identical, machine-verified figures |
 
 ![Two-page investor teaser built with pdf-builder](docs/img/teaser.jpg)
 <sub>`pdf-builder`, *editorial-magazine* direction. A Series B teaser for a fictional company, produced by [`examples/investor-teaser/build.py`](examples/investor-teaser/build.py).</sub>
@@ -18,7 +19,7 @@ Two [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills
 
 ## Why these are different
 
-Most document skills hand Claude a template and hope for the best. These two start from what goes wrong with AI-made documents and guard against it:
+Most document skills hand Claude a template and hope for the best. These start from what goes wrong with AI-made documents and guard against it:
 
 - **Pick a design direction first.** Claude locks the typography, palette and composition before writing any layout, choosing from five named directions or extracting them from a reference PDF you like. No more "Inter + navy + teal" on every document.
 - **Numbers come from one place.** Every figure has to trace back to a named source document, and conflicts between sources go to you rather than being quietly resolved. In the samples, the charts, tables and text all read from one data block, so they can't disagree.
@@ -35,6 +36,11 @@ The annual-report sample shows why the read-back matters. Checking it against th
 ![Annual report, institutional-classic direction](docs/img/annual-report-institutional.jpg)
 ![Annual report, luxury-refined direction](docs/img/annual-report-luxury.jpg)
 <sub>One line (`DIRECTION = "luxury-refined"`) restyles the whole report. Meridian Holdings is fictional, but its figures add up: the segments sum to the group, the letter's claims match the tables, and every year-on-year % ties. PDFs are in [`examples/annual-report/`](examples/annual-report/).</sub>
+
+### Financial results as print, reel and web (`finance-motion`)
+
+![Held frames from the animated results reel](docs/img/finance-motion-reel.jpg)
+<sub>Five held frames from a 35-second reel rendered from one `report.json`: count-up KPIs, growing revenue bars, the segment mix, a revenue waterfall and the income statement. The same file also renders a 3-page A4 PDF and a single-file interactive web report. No renderer is allowed to format a number: every visible figure is a `display` string from the data. `validate_report.py` refuses data that doesn't foot, and its self-test plants 7 errors and catches all 7. `verify_outputs.py` then reads every PDF page, held video frame and web section back with OCR, and confirms each figure is visible. Sample outputs are in [`examples/finance-motion/`](examples/finance-motion/): [reel](examples/finance-motion/meridian-reel.mp4) · [PDF](examples/finance-motion/meridian-report.pdf) · [web](examples/finance-motion/meridian-report.html) (download and open locally).</sub>
 
 ### Magazines and bookazines (`magazine-builder`)
 
@@ -74,6 +80,7 @@ Both skills follow the open `SKILL.md` format. Copy `plugins/print-studio/skills
 | Read-back checks | `pip install pymupdf` | `pip install pypdfium2 pillow` |
 | Fonts | Your choice, embedded as base64 | Bundled (all SIL OFL). A lite install can fetch them with `scripts/fetch_fonts.py` |
 | OCR read-back (optional) | `pip install torch torchvision "transformers>=5.17" accelerate` | same |
+| `finance-motion` | Typst (as above) · Node 18+ and `npm install` in `video/` for the reel (Remotion is free for individuals and companies of up to 3 people; larger companies need a [company licence](https://www.remotion.dev/license)) · a browser for the web report | |
 | Optional | none | `diffusers` + an SDXL model for local, original illustrations; `gradio_client` for photo-real heroes via free Hugging Face Spaces |
 
 ## Repository layout
@@ -82,10 +89,12 @@ Both skills follow the open `SKILL.md` format. Copy `plugins/print-studio/skills
 plugins/print-studio/skills/
   pdf-builder/            SKILL.md · 5 aesthetic directions · reference-PDF mode
   magazine-builder/       SKILL.md · template.typ · annual_report.typ · image-generation scripts · fonts
+  finance-motion/         SKILL.md · validate/verify scripts · pdf/ (Typst) · video/ (Remotion) · web/ (ECharts)
 examples/
   investor-teaser/        build.py + template → 2-page PDF (fictional company)
   annual-report/          both design directions, 7 pages each (fictional company)
   magazine-starter/       the starter template, compiled
+  finance-motion/         report.json → PDF + 35 s reel + interactive HTML (fictional company)
 ```
 
 ## Contributing
