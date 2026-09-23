@@ -9,6 +9,37 @@ Build print-ready, **image-led editorial magazines** that look like a real globa
 
 This skill is the **Typst** counterpart to `pdf-builder` (which is HTML/CSS for numeric business docs). For magazines, Typst wins: LaTeX-grade typography you can drive *and verify*, native flow layout (which structurally prevents the #1 failure below), and a single free binary.
 
+## Self-improvement: mandatory on every use
+
+This skill fixes itself. It's used across many projects (work documents, client reports,
+personal publications), and any defect it lets through will happen again on the next job
+unless the skill itself changes.
+
+**Canonical copy:** `~/.claude/skills/magazine-builder/`, a symlink into the user's Claude Hub repo
+(`custom-skills/magazine-builder/`). Edit **only** there. Every other copy (the public GitHub repo, a
+release zip, a plugin cache) is downstream and gets overwritten from the Hub. If you installed
+this skill some other way, your install folder is the canonical copy; skip the commit step.
+
+When you, the user or a read-back check finds a defect during a job:
+1. **Fix the document first.**
+2. **Ask: would this happen again on a different document?** Wrong sizing, font fallback,
+   overflow, clipped text, a wrong command, a template bug, a misleading instruction, a check
+   that failed to fire: yes, those are skill defects. If it only concerns this document's
+   content or this client's brand, it isn't a skill defect, so stop here.
+3. **Patch the canonical copy.** Put the rule where the next reader will hit it (the relevant
+   section, or the gotchas list), written as *symptom → cause → fix*. If an existing rule
+   already covered it and was ignored, strengthen or move that rule instead of adding a
+   duplicate. When the bug is in a template or script, fix the file itself.
+4. **Write it generically.** This skill is published publicly. No client, company, fund or
+   person names, no real figures, no paths from the job: write "a 12-page fund report", not
+   the report's real name. Private notes go in `LOCAL.md`, which is never published.
+5. **Log it:** one line in `CHANGELOG.md` (date · what broke · what changed).
+6. **Commit only this skill's files** (git follows the symlink to the Hub repo):
+   `git -C ~/.claude/skills/magazine-builder add . && git -C ~/.claude/skills/magazine-builder commit -m "magazine-builder: <lesson>" -- .`
+7. **Tell the user in one line:** "Skill updated: <lesson>."
+
+---
+
 ## When to use / not
 
 ✅ Anime/film/art/craft magazines, bookazines, zines, lookbooks, sector "the story of X" specials, multi-page editorial features with mixed text + infographics + imagery.
