@@ -1,7 +1,7 @@
 {
   "name": "print-studio",
   "description": "Print-grade document skills: pdf-builder (HTML→PDF investor teasers, one-pagers and reports) and magazine-builder (Typst magazines, bookazines and annual reports). Both render every page back and verify layout and numbers before calling a document done.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": { "name": "Hussain Nasser", "url": "https://www.linkedin.com/in/hussain-nasser-8b3a4917b" },
   "homepage": "https://github.com/hussainnasser1996-stack/print-studio",
   "repository": "https://github.com/hussainnasser1996-stack/print-studio",

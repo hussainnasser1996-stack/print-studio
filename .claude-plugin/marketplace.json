@@ -9,7 +9,7 @@
       "name": "print-studio",
       "source": "./plugins/print-studio",
       "description": "Two skills that turn Claude into a print designer who checks the maths: pdf-builder (HTML→PDF business documents — teasers, one-pagers, reports) and magazine-builder (Typst magazines, bookazines and annual reports). Every page is rendered back and read before it ships.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "documents",
       "keywords": ["pdf", "annual-report", "magazine", "typst", "investor-teaser", "finance", "print", "design"]
     }

@@ -23,6 +23,7 @@ Most document skills hand Claude a template and hope for the best. These two sta
 - **Pick a design direction first.** Claude locks the typography, palette and composition before writing any layout, choosing from five named directions or extracting them from a reference PDF you like. No more "Inter + navy + teal" on every document.
 - **Numbers come from one place.** Every figure has to trace back to a named source document, and conflicts between sources go to you rather than being quietly resolved. In the samples, the charts, tables and text all read from one data block, so they can't disagree.
 - **Every page is read back after rendering.** Claude opens its own PDF and checks it: page count, text overprinting, footers, clipped legal text, contents-page numbers, and whether the totals add up. Hidden overflow, where `overflow:hidden` silently deletes a disclaimer, is checked by measurement, because you can't see it by eye.
+- **New in 1.1: OCR read-back.** `scripts/readback_ocr.py` renders every page and reads the pixels with an open OCR model (GLM-OCR), then compares what a reader *sees* with what the file *contains*. It flags any figure that is in the PDF but invisible (white on white, covered, off the page), and any figure that is visible but can't be audited because it's baked into an image. It runs locally by default, and a built-in self-test proves the check can fail.
 - **Flow layout, not guessed coordinates.** Text is never placed at fixed positions, so it can't collide with other text.
 
 The annual-report sample shows why the read-back matters. Checking it against the skill's own rules caught a contents page pointing at the wrong pages, a growth rate off by 0.1 points, and a leverage change with the wrong sign. The template now reads its page numbers from the document, and it treats "good or bad" separately from "up or down".
@@ -72,7 +73,8 @@ Both skills follow the open `SKILL.md` format. Copy `plugins/print-studio/skills
 | Renderer | Chrome (macOS), Edge (Windows) or Chromium (Linux), already on most machines | [Typst](https://github.com/typst/typst/releases), a single free binary. The skill has one-line installs for each OS |
 | Read-back checks | `pip install pymupdf` | `pip install pypdfium2 pillow` |
 | Fonts | Your choice, embedded as base64 | Bundled (all SIL OFL). A lite install can fetch them with `scripts/fetch_fonts.py` |
-| Optional | none | `diffusers` + an SDXL model for local, original illustrations |
+| OCR read-back (optional) | `pip install torch torchvision "transformers>=5.17" accelerate` | same |
+| Optional | none | `diffusers` + an SDXL model for local, original illustrations; `gradio_client` for photo-real heroes via free Hugging Face Spaces |
 
 ## Repository layout
 
