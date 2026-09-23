@@ -1,0 +1,18 @@
+{
+  "fps": 30,
+  "fade": 10,
+  "scenes": [
+    {"id": "title",            "frames": 90},
+    {"id": "kpis",             "frames": 190, "hold_from": 110},
+    {"id": "revenue_history",  "frames": 150, "hold_from": 80},
+    {"id": "segments",         "frames": 150, "hold_from": 85},
+    {"id": "bridge",           "frames": 180, "hold_from": 110},
+    {"id": "income_statement", "frames": 180, "hold_from": 105},
+    {"id": "end",              "frames": 100}
+  ],
+  "formats": {
+    "4x5":  {"width": 1080, "height": 1350},
+    "9x16": {"width": 1080, "height": 1920},
+    "16x9": {"width": 1920, "height": 1080}
+  }
+}

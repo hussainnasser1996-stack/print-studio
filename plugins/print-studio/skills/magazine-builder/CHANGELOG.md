@@ -2,6 +2,7 @@
 
 One line per lesson: date · what broke · what changed. Newest first. Keep entries generic (this file is public).
 
+- 2026-09-24 · First looping "living cover": layers drifted, cutout specks floated, a seam smudged, the loop jumped · Added the "Living cover" section (hide()-based layers, largest-component mask, seam-aware fill, 1−cos camera).
 - 2026-09-23 · HF Spaces refused jobs despite remaining quota; a design model's "RGBA" output was opaque · Added GPU-request cap, alpha check, and when to use text-drawing design models.
 - 2026-09-23 · Text-layer checks can't see what a reader sees (dark-on-dark, overprinted, off-trim figures) · Added `scripts/readback_ocr.py` to Cardinal Rule 2 and the report audit rule.
 - 2026-09-23 · No photo-real image path; a tested HF model turned out research-only licensed and a Space returned square images · Added "Photo-real heroes via Hugging Face Spaces" (Z-Image-Turbo + BiRefNet-ONNX, licence/aspect/quota checks, depth-effect cover recipe).

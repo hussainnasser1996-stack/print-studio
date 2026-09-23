@@ -202,6 +202,23 @@ masthead.
 
 ---
 
+## Living cover: a looping 2.5D motion clip from a finished cover (local, free)
+For social media, animate the cover instead of regenerating it. Split it into layers: background
+(with the subject's hole filled), masthead, subject cutout, and cover lines. Push in slowly,
+move the subject slightly more than the background (parallax), and stagger the cover lines in.
+The subject is only scaled and moved, never re-generated, so a face can't distort.
+- **Layers drift out of register** → exporting each layer from a separate Typst file re-flows it
+  → keep ONE `.typ` with a per-layer switch and wrap the parts you're not exporting in
+  `hide()`, which keeps their space, so every layer is pixel-exact.
+- **Specks float free of the body** → background removal leaves small detached islands → keep
+  only the largest connected component of the alpha mask.
+- **A smudge where the subject meets furniture** → the hole-fill was a uniform band that
+  replaced real texture at the seam → fill wide only where the layers separate (head and top
+  edge), thin at the seam, and scale the subject around the seam point.
+- **A jump when the clip loops** → a linear push-in doesn't return → drive the camera with
+  `1 − cos` (out and back), and fade the cover lines out in the last ~0.5 s.
+- Keep the parallax subtle. Too much motion shows the filled background behind the head.
+
 ## Worked example — *ANIMA*, a five-volume bookazine series built with this skill
 **ANIMA, Volume One** ("The Story of Anime"): a 19-page original-IP bookazine built to global
 newsstand quality, benchmarked frame-by-frame against *ImagineFX Presents: The Story of Anime*.

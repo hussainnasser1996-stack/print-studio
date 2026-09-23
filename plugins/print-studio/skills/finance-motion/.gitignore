@@ -1,0 +1,4 @@
+video/node_modules/
+video/out/
+examples/*/out/*.mp4
+__pycache__/

@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "company": "Meridian Holdings",
+    "fictional": true,
+    "period": "FY25",
+    "prior_period": "FY24",
+    "currency": "USD",
+    "currency_symbol": "$",
+    "units": "US$ millions unless stated",
+    "source": "Audited consolidated financial statements, Note 3 (fictional sample)",
+    "theme": {
+      "ink": "#14213D", "paper": "#FCFCFA", "panel": "#F1EFE9",
+      "accent": "#1B3A6B", "gold": "#9A7B4F", "pos": "#1C6B4A", "neg": "#A33A2E", "muted": "#7A7A7A"
+    }
+  },
+  "kpis": [
+    {"id": "revenue",    "label": "Total revenue",     "value": 4.82, "display": "$4.82B", "delta": "+11.4%",  "direction": "up",   "good": true},
+    {"id": "op_profit",  "label": "Operating profit",  "value": 1.31, "display": "$1.31B", "delta": "+16.1%",  "direction": "up",   "good": true},
+    {"id": "op_margin",  "label": "Operating margin",  "value": 27.2, "display": "27.2%",  "delta": "+110 bps","direction": "up",   "good": true},
+    {"id": "eps",        "label": "Earnings / share",  "value": 3.41, "display": "$3.41",  "delta": "+14.0%",  "direction": "up",   "good": true},
+    {"id": "fcf",        "label": "Free cash flow",    "value": 0.92, "display": "$0.92B", "delta": "+8.7%",   "direction": "up",   "good": true},
+    {"id": "leverage",   "label": "Net debt / EBITDA", "value": 0.41, "display": "0.41x",  "delta": "−0.06x",  "direction": "down", "good": true}
+  ],
+  "revenue_history": {
+    "title": "Revenue, $B",
+    "unit": "$B",
+    "points": [
+      {"label": "FY21", "value": 3.10, "display": "3.10"},
+      {"label": "FY22", "value": 3.52, "display": "3.52"},
+      {"label": "FY23", "value": 3.98, "display": "3.98"},
+      {"label": "FY24", "value": 4.33, "display": "4.33"},
+      {"label": "FY25", "value": 4.82, "display": "4.82"}
+    ]
+  },
+  "segments": {
+    "title": "Revenue by segment, US$ millions",
+    "total": {"label": "Group", "revenue": 4820, "revenue_prior": 4328, "op_profit": 1310,
+              "display": {"revenue": "4,820", "revenue_prior": "4,328", "growth": "11.4%", "op_profit": "1,310", "margin": "27.2%"}},
+    "items": [
+      {"label": "Platform", "color": "accent", "revenue": 2550, "revenue_prior": 2330, "op_profit": 820,
+       "display": {"revenue": "2,550", "revenue_prior": "2,330", "growth": "9.4%",  "op_profit": "820", "margin": "32.2%", "share": "53%"}},
+      {"label": "Services", "color": "gold",   "revenue": 1420, "revenue_prior": 1180, "op_profit": 360,
+       "display": {"revenue": "1,420", "revenue_prior": "1,180", "growth": "20.3%", "op_profit": "360", "margin": "25.4%", "share": "29%"}},
+      {"label": "Hardware", "color": "pos",    "revenue": 610,  "revenue_prior": 590,  "op_profit": 70,
+       "display": {"revenue": "610",   "revenue_prior": "590",   "growth": "3.4%",  "op_profit": "70",  "margin": "11.5%", "share": "13%"}},
+      {"label": "Other",    "color": "muted",  "revenue": 240,  "revenue_prior": 228,  "op_profit": 60,
+       "display": {"revenue": "240",   "revenue_prior": "228",   "growth": "5.3%",  "op_profit": "60",  "margin": "25.0%", "share": "5%"}}
+    ]
+  },
+  "bridge": {
+    "title": "Revenue bridge FY24 → FY25, US$ millions",
+    "start": {"label": "FY24", "value": 4328, "display": "4,328"},
+    "steps": [
+      {"label": "Platform", "value": 220, "display": "+220"},
+      {"label": "Services", "value": 240, "display": "+240"},
+      {"label": "Hardware", "value": 20,  "display": "+20"},
+      {"label": "Other",    "value": 12,  "display": "+12"}
+    ],
+    "end": {"label": "FY25", "value": 4820, "display": "4,820"}
+  },
+  "income_statement": {
+    "title": "Income statement, US$ millions",
+    "columns": ["FY25", "FY24"],
+    "rows": [
+      {"label": "Revenue",             "values": [4820, 4328],   "display": ["4,820", "4,328"]},
+      {"label": "Cost of sales",       "values": [-2612, -2431], "display": ["(2,612)", "(2,431)"]},
+      {"label": "Gross profit",        "values": [2208, 1897],   "display": ["2,208", "1,897"], "total": true, "sum_of": ["Revenue", "Cost of sales"]},
+      {"label": "Operating expenses",  "values": [-898, -769],   "display": ["(898)", "(769)"]},
+      {"label": "Operating profit",    "values": [1310, 1128],   "display": ["1,310", "1,128"], "total": true, "sum_of": ["Gross profit", "Operating expenses"]},
+      {"label": "Net finance cost",    "values": [-86, -94],     "display": ["(86)", "(94)"]},
+      {"label": "Tax",                 "values": [-289, -244],   "display": ["(289)", "(244)"]},
+      {"label": "Profit for the year", "values": [935, 790],     "display": ["935", "790"], "total": true, "sum_of": ["Operating profit", "Net finance cost", "Tax"]}
+    ]
+  }
+}

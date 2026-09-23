@@ -1,0 +1,84 @@
+[
+  {
+    "section": "hero",
+    "selector": "section[data-section=\"hero\"]",
+    "strings": []
+  },
+  {
+    "section": "kpis",
+    "selector": "section[data-section=\"kpis\"]",
+    "strings": [
+      "$4.82B",
+      "+11.4%",
+      "$1.31B",
+      "+16.1%",
+      "27.2%",
+      "+110 bps",
+      "$3.41",
+      "+14.0%",
+      "$0.92B",
+      "+8.7%",
+      "0.41x",
+      "−0.06x"
+    ]
+  },
+  {
+    "section": "revenue_history",
+    "selector": "section[data-section=\"revenue_history\"]",
+    "strings": [
+      "3.10",
+      "3.52",
+      "3.98",
+      "4.33",
+      "4.82"
+    ]
+  },
+  {
+    "section": "segments",
+    "selector": "section[data-section=\"segments\"]",
+    "strings": [
+      "Platform",
+      "53%",
+      "Services",
+      "29%",
+      "Hardware",
+      "13%",
+      "Other",
+      "5%"
+    ]
+  },
+  {
+    "section": "bridge",
+    "selector": "section[data-section=\"bridge\"]",
+    "strings": [
+      "4,328",
+      "+220",
+      "+240",
+      "+20",
+      "+12",
+      "4,820"
+    ]
+  },
+  {
+    "section": "income_statement",
+    "selector": "section[data-section=\"income_statement\"]",
+    "strings": [
+      "4,820",
+      "4,328",
+      "(2,612)",
+      "(2,431)",
+      "2,208",
+      "1,897",
+      "(898)",
+      "(769)",
+      "1,310",
+      "1,128",
+      "(86)",
+      "(94)",
+      "(289)",
+      "(244)",
+      "935",
+      "790"
+    ]
+  }
+]
