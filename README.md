@@ -4,6 +4,8 @@
 
 Two [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) for print-ready PDFs: investor teasers, one-pagers, annual reports and full magazines. The documents look designed, not generated, and every number in them can be traced back to its source.
 
+**Preview page:** [huggingface.co/spaces/Abukhalifa/print-studio](https://huggingface.co/spaces/Abukhalifa/print-studio) · **SkillMD:** `hussainnasser1996/pdf-builder`, `hussainnasser1996/magazine-builder` (in review)
+
 | Skill | Engine | Best for |
 |---|---|---|
 | **`pdf-builder`** | HTML/CSS → headless Chrome / Edge | Investor teasers, one-pagers, term-sheet summaries, company profiles, short reports (1–20 pages) |
