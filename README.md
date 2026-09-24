@@ -4,7 +4,7 @@
 
 Three [Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) for print-ready PDFs (investor teasers, one-pagers, annual reports, full magazines) and for financial results as animated reels and interactive web reports. The documents look designed, not generated, and every number in them can be traced back to its source.
 
-**Preview page:** [huggingface.co/spaces/Abukhalifa/print-studio](https://huggingface.co/spaces/Abukhalifa/print-studio) · **SkillMD:** `hussainnasser1996/pdf-builder`, `hussainnasser1996/magazine-builder` (in review)
+**Preview page:** [huggingface.co/spaces/Abukhalifa/print-studio](https://huggingface.co/spaces/Abukhalifa/print-studio) · **SkillMD:** [pdf-builder](https://skillmd.com/skills/hussainnasser1996/pdf-builder) · [magazine-builder](https://skillmd.com/skills/hussainnasser1996/magazine-builder) · finance-motion (in review)
 
 | Skill | Engine | Best for |
 |---|---|---|
